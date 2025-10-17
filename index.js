@@ -210,7 +210,7 @@ app.post("/user/tour", authMiddleware, async (req, res) => {
 });
 
 
-app.post("/register", async (req,res)=>{gi
+app.post("/register", async (req,res)=>{
     try {
         const {name, email, phoneNumber, wilaya, password} = req.body
 
