@@ -309,15 +309,30 @@ app.get("/myProfile", authMiddleware, async(req,res)=>{
 
 
 
-mongoose.connect("mongodb://localhost:27017/Travel-web", {
-    serverSelectionTimeoutMS: 5000
+// mongoose.connect("mongodb://localhost:27017/Travel-web", {
+//     serverSelectionTimeoutMS: 5000
+// })
+
+//    .then(()=>{
+//     console.log("connected")
+//     app.listen(4000, (req,res)=>{
+//         console.log("server is running")
+//     })
+//    }).catch((err)=>{
+//     console.log(err)
+//    })
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/Travel-web", {
+    serverSelectionTimeoutMS: 10000
 })
 
-   .then(()=>{
-    console.log("connected")
-    app.listen(4000, (req,res)=>{
-        console.log("server is running")
-    })
-   }).catch((err)=>{
-    console.log(err)
-   })
+  .then(() => {
+      console.log("Connected to database")
+      const PORT = process.env.PORT || 4000;
+      app.listen(PORT, () => {
+         console.log(`Server is running on port ${PORT}`)
+      })
+  })
+ .catch((err) => {
+      console.log("Database connection error:", err)
+  })
